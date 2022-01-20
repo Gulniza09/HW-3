@@ -2,27 +2,41 @@ import { useState } from 'react'
 import './ProjectForm.css'
 
 const ProjectForm = () => {
-	const [title, setTitle] = useState('')
-	const [amount, setAmount] = useState('')
-	const [date, setDate] = useState('')
+	const [userInput, setUserInput] = useState({
+		title: '',
+		amount: '',
+		date: '',
+	})
 
-	const inputChangeHandler = (event) => {
-		const currentInput = event.target.name
-		if (currentInput === 'title') {
-			setTitle(event.target.value)
-		} else if (currentInput === 'amount') {
-			setAmount(event.target.value)
-		} else if (currentInput === 'date') {
-			setDate(event.target.value)
-		}
+	const titleChangeHandler = (event) => {
+		// setTitle(event.target.value)
+		setUserInput((prevState) => {
+			return {
+				...prevState,
+				title: event.target.value,
+			}
+		})
+	}
+	const amountChangeHandler = (event) => {
+		setUserInput((prevState) => {
+			return {
+				...prevState,
+				amount: event.target.value,
+			}
+		})
+	}
+	const dateChangeHandler = (event) => {
+		setUserInput((prevState) => {
+			return {
+				...prevState,
+				title: event.target.value,
+			}
+		})
 	}
 
-	
 	const submitHandler = (event) => {
 		event.preventDefault()
-		console.log(title)
-		console.log(amount)
-		console.log(date)
+		console.log(userInput)
 	}
 	return (
 		<form onSubmit={submitHandler}>
@@ -32,7 +46,7 @@ const ProjectForm = () => {
 					<input
 						name='title'
 						type='text'
-						onChange={inputChangeHandler}
+						onChange={titleChangeHandler}
 						placeholder='Name'
 					/>
 				</div>
@@ -44,7 +58,7 @@ const ProjectForm = () => {
 						placeholder='Email'
 						min='0.1'
 						step='1'
-						onChange={inputChangeHandler}
+						onChange={amountChangeHandler}
 					/>
 				</div>
 				<div className='user-info'>
@@ -54,7 +68,7 @@ const ProjectForm = () => {
 						type='password'
 						placeholder='Password'
 						min='2022-01-01'
-						onChange={inputChangeHandler}
+						onChange={dateChangeHandler}
 					/>
 				</div>
 			</div>
